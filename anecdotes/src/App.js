@@ -8,6 +8,12 @@ const Button = ({ handleClick }) => {
   )
 }
 
+const Display = ({anecdote}) => {
+  return (
+    <p> {anecdote} </p>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -27,11 +33,12 @@ const App = () => {
   }
 
   const [selected, setSelected] = useState(0)
+  const anecdote = anecdotes[selected]
 
   return (
     <div>
       <Button handleClick={handleRandomClick} />
-      <p>{anecdotes[selected]}</p>
+      <Display anecdote={anecdote} />
     </div>
   );
 }
