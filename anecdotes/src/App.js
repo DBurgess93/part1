@@ -62,9 +62,7 @@ const App = () => {
       <Button handleClick={handleRandomClick} text="next anecdote" />
       <Button handleClick={handleVoteClick} text="Vote" />
       <Display anecdote={anecdote} votes={totalVotes} />
-      <button onClick={handleMostVotes} >
-        Show anecdote with most votes
-      </button>
+      <Button handleClick={handleMostVotes} text="Show anecdote with most votes" />
       <p> {anecdotes[mostVotes.index]} </p>
     </div>
   );
