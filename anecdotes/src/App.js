@@ -43,8 +43,17 @@ const App = () => {
     console.log(newVotes)
   }
 
+  const handleMostVotes = () => {
+    const voteArray = Object.entries(votes)
+      .map(([index, votes]) => ({ index, votes }))
+    const maxAn = voteArray.reduce((max, an) => max.votes > an.votes ? max : an)
+    setMostVotes(maxAn)
+    console.log(mostVotes)
+  }
+
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState({})
+  const [mostVotes, setMostVotes] = useState(0)
   const anecdote = anecdotes[selected]
   const totalVotes = votes[selected] || 0
 
@@ -53,6 +62,10 @@ const App = () => {
       <Button handleClick={handleRandomClick} text="next anecdote" />
       <Button handleClick={handleVoteClick} text="Vote" />
       <Display anecdote={anecdote} votes={totalVotes} />
+      <button onClick={handleMostVotes} >
+        Show anecdote with most votes
+      </button>
+      <p> {anecdotes[mostVotes.index]} </p>
     </div>
   );
 }
