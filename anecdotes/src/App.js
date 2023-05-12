@@ -21,7 +21,7 @@ const DisplayAnecdoteWithMostVotes = ({ anecdote, votes }) => {
     return (
       <div>
         <p>{anecdote} </p>
-        <p>{votes} votes </p>
+        <p>{votes} {votes !== 1 ? 'votes' : 'vote' } </p>
       </div>
     )
   } else {
