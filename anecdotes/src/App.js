@@ -8,13 +8,25 @@ const Button = ({ handleClick, text }) => {
   )
 }
 
-const Display = ({ anecdote, votes }) => {
+const DisplayAnecdote = ({ anecdote, votes }) => {
   return (
     <div>
-      <p> {anecdote} </p>
+      <p>{anecdote} </p>
       <p> Total votes: {votes} </p>
-    </div>
-  )
+    </div>)
+}
+
+const DisplayAnecdoteWithMostVotes = ({ anecdote, votes }) => {
+  if (votes > 0) {
+    return (
+      <div>
+        <p>{anecdote} </p>
+        <p>{votes} votes </p>
+      </div>
+    )
+  } else {
+    return null
+  }
 }
 
 const App = () => {
@@ -46,16 +58,18 @@ const App = () => {
   const handleMostVotes = () => {
     const voteArray = Object.entries(votes)
       .map(([index, votes]) => ({ index, votes }))
+    if (voteArray.length === 0) {
+      alert('None of the anecdotes have votes yet')
+      setMostVotes({ index: 0, votes: 0 })
+      return
+    }
     const maxAn = voteArray.reduce((max, an) => max.votes > an.votes ? max : an)
     setMostVotes(maxAn)
-    setMostVotesAmount(maxAn.votes)
-    console.log(maxAn.votes)
   }
 
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState({})
-  const [mostVotes, setMostVotes] = useState(0)
-  const [mostVotesAmount, setMostVotesAmount] = useState(0)
+  const [mostVotes, setMostVotes] = useState({ index: 0, votes: 0 })
   const anecdote = anecdotes[selected]
   const totalVotes = votes[selected] || 0
   const anecdoteWithMostVotes = anecdotes[mostVotes.index]
@@ -64,10 +78,15 @@ const App = () => {
     <div>
       <Button handleClick={handleRandomClick} text="next anecdote" />
       <Button handleClick={handleVoteClick} text="Vote" />
-      <Display anecdote={anecdote} votes={totalVotes} />
+      <DisplayAnecdote
+        anecdote={anecdote}
+        votes={totalVotes}
+      />
       <Button handleClick={handleMostVotes} text="Show anecdote with most votes" />
-      <p> {anecdoteWithMostVotes} </p>
-      <p>{mostVotesAmount}</p>
+      <DisplayAnecdoteWithMostVotes
+        anecdote={anecdoteWithMostVotes}
+        votes={mostVotes.votes}
+      />
     </div>
   );
 }
