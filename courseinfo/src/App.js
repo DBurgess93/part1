@@ -55,6 +55,7 @@ const App = () => {
       {courses.map((course, index) => (
         <Course key={index} course={course} total={total(index)} />
       ))}
+
     </div>
   )
 }
